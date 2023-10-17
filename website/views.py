@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
-from django.http import HttpResponse
+
+from .forms import SignUpForm
 
 def home(request):
     if request.method=="POST":
@@ -28,5 +29,22 @@ def logout_(request):
 
 
 def register_(request):
-    return render(request,'register.html')
+    if request.method=='POST':   
+        form=SignUpForm(request.POST)
+        if form.is_valid():
 
+            form.save()
+
+            #auhenticae & logging
+            username = form.cleaned_data['username'] #username = ...  assigns the cleaned 'username' value to the username variable. 
+            password = form.cleaned_data['password1']
+            user = authenticate(username=username, password=password)
+            login(request,user)
+            messages.success(request,"You have Succesfully Registered")
+            return redirect(request,'homee')
+
+    else:                  #when  no action of POST
+        form = SignUpForm()
+        return render(request, 'register.html', {'form': form})# passes the "form":form  as context data to the template,html
+
+    return render(request,'register.html', {'form': form})

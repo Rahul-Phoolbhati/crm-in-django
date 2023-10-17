@@ -2,4 +2,27 @@
 
 {% block content %}
 <h1>Register</h1>
+<br/>
+
+<form method="POST" action="{% url 'register' %}"> 
+{% comment %} name ='homee' {% endcomment %}
+{% csrf_token %}
+
+{% if form.errors %}
+Your Form has error
+{% for field in form  %}
+{% if field.errors %} 
+{{ field.errors}}
+
+
+{% endif %}
+
+{% endfor %}
+{% endif %}
+   {{ form.as_p }}
+<button type="submit">Submit</button>
+
+</form> 
+
+
 {% endblock %}
