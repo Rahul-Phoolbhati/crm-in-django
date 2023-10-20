@@ -1,10 +1,18 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .models import Record  # Importing th model
 
 from .forms import SignUpForm
 
+
 def home(request):
+
+    Recordss=Record.objects.all()# Retrieve all user objects
+    # return render(request, 'home.html', {'Recordss': Recordss})
+
+     # check to dee login
     if request.method=="POST":
         username=request.POST["username"]
         password=request.POST["password"] #password in bracket beacuse we gave name="password" in form
@@ -12,12 +20,12 @@ def home(request):
 
         if user is not None: # succesfull login
             login(request,user)  #login now 
-            messages.success(request,"u have ben logged succesfully")
+            messages.success(request,"u have beeeeeen logged succesfully")
             return redirect('homee')
         else:
             messages.success(request,"Try Again")
 
-    return render (request,'home.html')
+    return render (request,'home.html',{'Recordss':Recordss})
 
 # def login_(request):
 #     pass 
@@ -28,7 +36,7 @@ def logout_(request):
     return redirect('homee')
 
 
-def register_(request):
+def register_(request,pk):
     if request.method=='POST':   
         form=SignUpForm(request.POST)
         if form.is_valid():

@@ -3,7 +3,56 @@
 {% block content %}
 
  {% if user.is_authenticated %}
-<h1>Welcome u r logged in</h1>
+<h1>Welcome u r logged in raj</h1>
+<p>Records are </p>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">email</th>
+      <th scope="col">phone</th>
+      <th scope="col">cty</th>
+      <th scope="col">address</th>
+      <th scope="col">zipcode</th>
+      <th scope="col">created_at</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for i in Recordss %}
+   <a href="{% url 'records' records.pk %}">
+    <tr>
+    
+      <th scope="row">1</th>
+      <td>{{i.first_name}}</td>
+      <td>{{i.last_name}}</td>
+      <td>{{i.email}}</td>
+      <td>{{i.phone}}</td>
+      <td>{{i.city}}</td>
+      <td>{{i.address|truncatewords:5}}</td>
+      <td>{{i.zipcode}}</td>
+      <td>{{i.created_at}}</td>
+      {% endfor %}
+    </tr>
+    </a>
+
+
+{% comment %} 
+<ul>
+{% for i in Recordss %}
+<li>{{i.first_name}}</li>
+<li>{{i.last_name}}</li>
+<li>{{i.email}}</li>
+<li>{{i.phone}}</li>
+<li>{{i.city}}</li>
+<li>{{i.address}}</li>
+<li>{{i.zipcode}}</li>
+{% endfor %}
+</ul>  {% endcomment %}
+
+
 {%  else %} 
 
  <h3>Login n</h3>
