@@ -22,7 +22,7 @@
   </thead>
   <tbody>
   {% for i in Recordss %}
-   <a href="{% url 'records' records.pk %}">
+   {% comment %} <a href="{% url 'records' record.pk %}"> {% endcomment %}
     <tr>
     
       <th scope="row">1</th>
@@ -34,9 +34,10 @@
       <td>{{i.address|truncatewords:5}}</td>
       <td>{{i.zipcode}}</td>
       <td>{{i.created_at}}</td>
+      <td><a href="{% url 'records' i.id %}" style="text-decoration: none;">{{i.id}}</a></td> 
       {% endfor %}
     </tr>
-    </a>
+    {% comment %} </a> {% endcomment %}
 
 
 {% comment %} 

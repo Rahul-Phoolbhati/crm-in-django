@@ -1,6 +1,33 @@
 {% extends 'base.html' %}
 
-{% block abc %}
-<p>hello home</p>
+{% block content %}
+<p>hello raj, u can edit the data</p>
 
+<div class="card">
+  <div class="card-header">
+    {{customer.first_name}} {{customer.last_name}}
+  </div>
+      <br/>
+      <p>email: {{customer.email}}</p>
+            <br/>
+      {{customer.phone}}
+            <br/>
+      {{customer.city}}
+      <br/>
+      
+      {{customer.address|truncatewords:5}}
+      <br/>
+      {{customer.zipcode}}
+      <br/>
+      {{customer.created_at}}
+      <br/>
+          <br/>
+          
+               <br/>
+               </div>
+
+     <button type="button" class="btn btn-primary btn-lg"> <a href= "{% url 'homee' %}" style="color: black; text-decoration: none;">Back</a> </button>
+    <button type="button" class="btn btn-secondary btn-lg btn-danger"><a href= "{% url 'delete' customer.id %}" style="color: black; text-decoration: none;">delete</a></button>
+    <a href="{% url 'update_record' customer.id %}" class="btn btn-secondary">Update Record</a>
+    
 {% endblock  %}

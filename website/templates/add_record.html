@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- create_task.html -->   
+<form method="post" action="{% url 'addd' %}">
+    {% csrf_token %}
+    {{ forrm.as_p }}
+    <button type="submit" class=" btn btn-warning">Add record</button>
+    {% comment %} <a href="{% url 'homee' %}" class="btn btn-secondary">Back</a> {% endcomment %}
+</form>
+
+
+
+{% endblock  %}

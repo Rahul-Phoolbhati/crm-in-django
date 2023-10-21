@@ -3,14 +3,13 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Record  # Importing th model
-
-from .forms import SignUpForm
+from .forms import SignUpForm,AddRecord
 
 
 def home(request):
 
     Recordss=Record.objects.all()# Retrieve all user objects
-    # return render(request, 'home.html', {'Recordss': Recordss})
+    return render(request, 'home.html', {'Recordss': Recordss})
 
      # check to dee login
     if request.method=="POST":
@@ -36,7 +35,7 @@ def logout_(request):
     return redirect('homee')
 
 
-def register_(request,pk):
+def register_(request):
     if request.method=='POST':   
         form=SignUpForm(request.POST)
         if form.is_valid():
@@ -56,3 +55,54 @@ def register_(request,pk):
         return render(request, 'register.html', {'form': form})# passes the "form":form  as context data to the template,html
 
     return render(request,'register.html', {'form': form})
+
+def customer(request,pk):
+    if request.user.is_authenticated:
+
+        #see teh recordss
+        customer=Record.objects.get(id=pk)
+        return render(request,'record.html',{'customer':customer})
+    else:
+        messages.success(request,"You can't edit, as u must be logij to view that page ")
+        return redirect(request,'homee')
+
+def delete__(request,pk):
+    if request.user.is_authenticated:
+
+        delete_=Record.objects.get(id=pk)
+        delete_.delete()
+        messages.success(request,"Record deleeted ")
+        return redirect('homee')
+    else:
+        messages.success(request,"You can't edit, as u must be logij to view that page ")
+        return redirect('homee')
+
+def add(request):
+    forrm = AddRecord(request.POST or None)  
+    if request.user.is_authenticated:
+        if request.method=="POST":
+            if forrm.is_valid():
+                add_=forrm.save()
+                messages.success(request, "Record added successfully")
+                return redirect('homee')
+
+        return render(request, 'add_record.html', {'forrm': forrm})
+    else:
+        messages.success(request, "You can't add a record as you must be logged in to view that page")
+        return redirect('homee')
+        
+def update_record(request, pk):
+	if request.user.is_authenticated:
+		current_record = Record.objects.get(id=pk)
+		form = AddRecord(request.POST or None, instance=current_record)
+		if form.is_valid():
+			form.save()
+			messages.success(request, "Record Has Been Updated!")
+			return redirect('homee')
+		return render(request, 'update_record.html', {'form':form})
+	else: 
+		messages.success(request, "You Must Be Logged In...")
+		return redirect('homee')
+
+
+     

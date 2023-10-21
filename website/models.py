@@ -1,9 +1,10 @@
 from django.db import models
+from django.utils import timezone 
 
 # DJANGO WILL Automatically convert to sql (if db is sql), django has db we need to migrate
 # Create your models here.
 class Record(models.Model):
-    created_at=models.DateTimeField()
+    created_at=models.DateTimeField(auto_now_add=True)
     first_name=models.CharField(max_length=15)
     last_name=models.CharField(max_length=15)
     email=models.EmailField(max_length=50)
