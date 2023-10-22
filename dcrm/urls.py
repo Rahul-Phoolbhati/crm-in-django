@@ -7,5 +7,4 @@ urlpatterns = [
     path('website/',include('website.urls')),
     # path('api/',include('api.urls')),
     path('api/',include('website.api.urls'))
-    
 ]
