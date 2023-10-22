@@ -1,14 +1,28 @@
-# from django.shortcuts import render
-# from rest_framework.response import Response
-# from rest_framework.decorators import api_view
-# from website.models import Record
-# from .serializers import RecordSerializer
+from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from website.models import Record
+from .serializers import RecordSerializer
+from rest_framework import viewsets # set of views, no need get,post.....it automatically call
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import  IsAuthenticatedOrReadOnly
 
 
 
-# # get all the data
-# # serialize them 
-# # return jsom
+# get all the data
+# serialize them 
+# return jsom
+
+
+class RecordViewSet(viewsets.ModelViewSet):
+    queryset = Record.objects.all()
+    serializer_class = RecordSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    authentication_classes = [SessionAuthentication]
+
+
+
+
 
  
 
