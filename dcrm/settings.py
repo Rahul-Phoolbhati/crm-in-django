@@ -30,6 +30,16 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        # Other renderers...
+    ),
+    # ...
+}
+
+
+
 INSTALLED_APPS = [
     'rest_framework',
     # 'api',
@@ -78,7 +88,7 @@ WSGI_APPLICATION = 'dcrm.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME':'my_django_project',
         'USER': 'root',
         'PASSWORD': 'root_123',
