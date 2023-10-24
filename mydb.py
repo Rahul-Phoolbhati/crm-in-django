@@ -1,17 +1,17 @@
-import mysql.connector
+# import mysql.connector
 
-dataBase=mysql.connector.connect(
-    host="localhost",
-    user="root",
-    passwd="root123"
-)
+# dataBase=mysql.connector.connect(
+#     host="localhost",
+#     user="root",
+#     passwd="root123"
+# )
 
 
-#prepare acursor object
+# #prepare acursor object
 
-cursorObject=dataBase.cursor()
+# cursorObject=dataBase.cursor()
 
-#craete a db
+# #craete a db
 
-cursorObject.execute("CREATE DATABASE my_django_projet")
-print("All Done")
+# cursorObject.execute("CREATE DATABASE my_django_projet")
+# print("All Done")
